@@ -70,6 +70,7 @@ function createHandler(filename, reports, phantom) {
         }
 
         var b = browserify(files, {debug: true});
+        b.transform('babelify');
         if (reports) b.transform(instrumentTransform());
         return b.bundle(onBrowserifySrc)
 
