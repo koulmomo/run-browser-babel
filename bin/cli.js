@@ -22,7 +22,7 @@ if (help) {
   var helpText = [
     '',
     'Usage:',
-    '  run-browser <file> <options>',
+    '  run-browser-babel <file> <options>',
     '',
     'Options:',
     '  -p --port <number> The port number to run the server on (default: 3000)',
@@ -31,7 +31,7 @@ if (help) {
     '  -t --timeout       Global timeout in milliseconds for tests to finish. (default: Infinity)',
     '',
     'Example:',
-    '  run-browser test-file.js --port 3030 --report text --report html --report=cobertura',
+    '  run-browser-babel test-file.js --port 3030 --report text --report html --report=cobertura',
     ''
   ].join('\n');
   console.log(helpText);

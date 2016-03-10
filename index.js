@@ -37,7 +37,7 @@ function instrumentTransform() {
 
 function handleError(err, res) {
   var e = JSON.stringify(err.toString());
-  res.end('document.getElementById("__testling_output").textContent = ' + 
+  res.end('document.getElementById("__testling_output").textContent = ' +
     e + ';console.error(' + e + ');');
   if (err) console.error(err.stack || err.message || err);
 }
