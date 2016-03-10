@@ -1,18 +1,18 @@
-# run-browser
+# run-browser-babel
 
-The simplest way to run testling type tests in the browser
+The simplest way to run testling type tests in the browser. Supports babelified bundles.
 
-[![Dependency Status](https://img.shields.io/gemnasium/ForbesLindesay/run-browser.svg)](https://gemnasium.com/ForbesLindesay/run-browser)
-[![NPM version](https://img.shields.io/npm/v/run-browser.svg)](http://badge.fury.io/js/run-browser)
+[![Dependency Status](https://img.shields.io/gemnasium/rtsao/run-browser-babel.svg)](https://gemnasium.com/rtsao/run-browser-babel)
+[![NPM version](https://img.shields.io/npm/v/run-browser-babel.svg)](http://badge.fury.io/js/run-browser-babel)
 
 ## Installation
 
-    npm install run-browser -g
+    npm install run-browser-babel -g
 
 
 ## Usage
 
-    run-browser <file> <options>
+    run-browser-babel <file> <options>
 
     Options:
       -p --port <number> The port number to run the server on (default: 3000)
@@ -21,14 +21,14 @@ The simplest way to run testling type tests in the browser
       -t --timeout       Global timeout in milliseconds for tests to finish. (default: Infinity)
 
     Example:
-      run-browser test-file.js --port 3030 --report text --report html --report=cobertura
+      run-browser-babel test-file.js --port 3030 --report text --report html --report=cobertura
 
 ## API Usage
 
 Basic usage:
 
 ```js
-var runBrowser = require('run-browser');
+var runBrowser = require('run-browser-babel');
 
 var server = runBrowser('tests/test.js');
 server.listen(3000);
@@ -37,7 +37,7 @@ server.listen(3000);
 Advanced Usage:
 
 ```js
-var runBrowser = require('run-browser');
+var runBrowser = require('run-browser-babel');
 
 var handler = runBrowser.createHandler('tests/test.js');
 var server = http.createServer(function (req, res) {

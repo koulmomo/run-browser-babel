@@ -5,25 +5,27 @@
   "bin": "./bin/cli.js",
   "keywords": [],
   "dependencies": {
-    "browserify": "^11.0.1",
+    "browserify": "^13.0.0",
     "browserify-babel-istanbul": "^0.4.0",
-    "function-bind": "^1.0.2",
-    "glob": "~3.2.7",
+    "function-bind": "^1.1.0",
+    "glob": "^7.0.3",
     "global": "^4.3.0",
-    "istanbul": "^0.3.2",
-    "jsonstream2": "^1.1.0",
-    "minimist": "0.0.8",
-    "phantomjs": "~1.9.7-1",
-    "process": "^0.9.0",
-    "tap-finished": "0.0.1",
-    "through2-spy": "^1.2.0",
-    "xhr": "^1.17.0"
+    "istanbul": "^0.4.2",
+    "jsonstream2": "^1.1.1",
+    "minimist": "^1.2.0",
+    "phantomjs": "^2.1.3",
+    "process": "^0.11.2",
+    "tap-finished": "^0.0.1",
+    "through2-spy": "^2.0.0",
+    "xhr": "^2.2.0"
   },
   "devDependencies": {
-    "linify": "^1.0.1"
+    "linify": "^1.0.1",
+    "tape": "^4.5.1"
   },
   "scripts": {
-    "prepublish": "linify transform ./bin"
+    "prepublish": "linify transform ./bin",
+    "test": "./bin/cli.js test.js --port 3000 --phantom --report text"
   },
   "repository": {
     "type": "git",
