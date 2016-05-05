@@ -18,8 +18,8 @@ module.exports.runPhantom = runPhantom;
 module.exports.createHandler = createHandler;
 module.exports.handles = handles;
 
-function createServer(filename, reports, phantom) {
-  var handler = createHandler(filename, reports, phantom);
+function createServer(filename, reports, phantom, browserifyOpts) {
+  var handler = createHandler(filename, reports, phantom, browserifyOpts);
   return http.createServer(handler);
 }
 
@@ -42,7 +42,8 @@ function handleError(err, res) {
   if (err) console.error(err.stack || err.message || err);
 }
 
-function createHandler(filename, reports, phantom) {
+function createHandler(filename, reports, phantom, browserifyOpts) {
+  if (!browserifyOpts || !Array.isArray(browserifyOpts.plugins)) return new Error('Invalid browserify options: ' + JSON.stringify(browserifyOpts));
 
   if (typeof reports === 'boolean' && reports) reports = [ 'text' ];
   else if (typeof reports === 'string') reports = [ reports ];
@@ -71,6 +72,9 @@ function createHandler(filename, reports, phantom) {
 
         var b = browserify(files, {debug: true});
         if (reports) b.transform(instrumentTransform());
+        browserifyOpts.plugins.forEach(function eachPlugin(plugin) {
+          b.plugin(plugin);
+        });
         return b.bundle(onBrowserifySrc)
 
         function onBrowserifySrc(err, src) {
