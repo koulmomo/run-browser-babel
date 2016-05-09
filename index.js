@@ -29,7 +29,7 @@ function instrumentTransform() {
       '**/node_modules/**',
       '**/test/**',
       '**/tests/**',
-      '**/run-browser/**'
+      '**/run-browser-babel/**'
     ],
     defaultIgnore: true
   });
