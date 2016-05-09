@@ -1,6 +1,6 @@
 {
   "name": "run-browser-babel",
-  "version": "5.1.1",
+  "version": "5.2.0",
   "description": "The simplest way to run testling type tests in the browser",
   "bin": "./bin/cli.js",
   "keywords": [],
