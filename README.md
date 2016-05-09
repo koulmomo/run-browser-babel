@@ -15,11 +15,15 @@ The simplest way to run testling type tests in the browser. Supports babelified 
     run-browser-babel <file> <options>
 
     Options:
-      -p --port <number>               The port number to run the server on (default: 3000)
-      -b --phantom                     Use the phantom headless browser to run tests and then exit with the correct status code (if tests output TAP)
-      -r --report                      Generate coverage Istanbul report. Repeat for each type of coverage report desired. (default: text only)
-      -t --timeout                     Global timeout in milliseconds for tests to finish. (default: Infinity)
-      -bp --browserify-plugin <module> Register <module> as a browserify plugin
+      -p --port <number>                      The port number to run the server on (default: 3000)
+      -b --phantom                            Use the phantom headless browser to run tests and then exit with the correct status code (if tests output TAP)
+      -r --report                             Generate coverage Istanbul report. Repeat for each type of coverage report desired. (default: text only)
+      -t --timeout                            Global timeout in milliseconds for tests to finish. (default: Infinity)
+
+    Browserify Options:
+      --bp --browserify-plugin <module>       Register <module> as a browserify plugin
+      --bt --browserify-transform <transform> Use a transform module on top-level files
+      --bx --browserify-external <module>     Reference a file from another bundle. Files can be globs
 
     Example:
       run-browser-babel test-file.js --port 3030 --report text --report html --report=cobertura --browserify-plugin proxyquireify/plugin

@@ -42,8 +42,27 @@ function handleError(err, res) {
   if (err) console.error(err.stack || err.message || err);
 }
 
+var BROWSERIFY_ERROR_MESSAGE_PREFIX = 'Invalid browserify options: ';
+var BROWSERIFY_ARRAY_PROPS = ['transforms', 'plugins', 'externals'];
+function checkBrowserifyOptsError(opts) {
+  if (!opts) {
+    return new Error(BROWSERIFY_ERROR_MESSAGE_PREFIX + 'expected options to be truthy.');
+  }
+
+  if (!BROWSERIFY_ARRAY_PROPS.map(function eachArrayProp(prop) {
+    return opts[prop];
+  }).every(Array.isArray)) {
+    return new Error(BROWSERIFY_ERROR_MESSAGE_PREFIX + 'expected ' + BROWSERIFY_ARRAY_PROPS.map(function eachProp(prop){
+      return '"opts.' + prop + '"';
+    }).join(',') +' to be arrays, but instead got: ' + JSON.stringify(opts));
+  }
+}
+
 function createHandler(filename, reports, phantom, browserifyOpts) {
-  if (!browserifyOpts || !Array.isArray(browserifyOpts.plugins)) return new Error('Invalid browserify options: ' + JSON.stringify(browserifyOpts));
+  var browserifyOptsError = checkBrowserifyOptsError(browserifyOpts);
+  if (browserifyOptsError) {
+    return browserifyOptsError;
+  }
 
   if (typeof reports === 'boolean' && reports) reports = [ 'text' ];
   else if (typeof reports === 'string') reports = [ reports ];
@@ -71,10 +90,21 @@ function createHandler(filename, reports, phantom, browserifyOpts) {
         }
 
         var b = browserify(files, {debug: true});
+
+        browserifyOpts.externals.forEach(function eachExternal(external) {
+          b.external(external, {debug: true});
+        });
+
         if (reports) b.transform(instrumentTransform());
+
+        browserifyOpts.transforms.forEach(function eachTransform(transform) {
+          b.transform(transform);
+        });
+
         browserifyOpts.plugins.forEach(function eachPlugin(plugin) {
           b.plugin(plugin);
         });
+
         return b.bundle(onBrowserifySrc)
 
         function onBrowserifySrc(err, src) {
